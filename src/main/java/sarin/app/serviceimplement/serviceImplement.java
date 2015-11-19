@@ -22,10 +22,11 @@ public class serviceImplement implements StudentService {
 	@Autowired
 	private DataSource dataSource;
 	
-	public ArrayList<StudentDTO> list(int limit,int page) throws SQLException {
-		
-		int offset = limit * page;
-		
+	
+	
+	
+	public ArrayList<StudentDTO> list(int limit,int page) throws SQLException {		
+		int offset = limit * page;		
 		try {
 			StudentDTO s;
 			con=dataSource.getConnection();
@@ -35,8 +36,7 @@ public class serviceImplement implements StudentService {
 			ps.setInt(1, limit);
 			ps.setInt(2, offset);
 			rs=ps.executeQuery();
-			ArrayList<StudentDTO> a = new ArrayList<StudentDTO>();
-			
+			ArrayList<StudentDTO> a = new ArrayList<StudentDTO>();			
 			while(rs.next()){	
 				s = new StudentDTO();
 				s.setId(rs.getInt("id"));
@@ -44,8 +44,7 @@ public class serviceImplement implements StudentService {
 				s.setLastname(rs.getString("last_name"));
 				s.setClassroom(rs.getString("classroom"));
 				a.add(s);	
-			}
-			
+			}			
 			return a;
 			}catch (SQLException e){
 				e.printStackTrace();
@@ -54,6 +53,36 @@ public class serviceImplement implements StudentService {
 				con.close();
 			}
 			return null;	
+	}
+
+
+
+
+	public ArrayList<StudentDTO> listAllrecorde() throws SQLException {
+		try {
+			StudentDTO s;
+			con=dataSource.getConnection();
+			ResultSet rs = null;
+			String sql = "SELECT * FROM  student ";
+			PreparedStatement ps = con.prepareStatement(sql);			
+			rs=ps.executeQuery();
+			ArrayList<StudentDTO> a = new ArrayList<StudentDTO>();			
+			while(rs.next()){	
+				s = new StudentDTO();
+				s.setId(rs.getInt("id"));
+				s.setFristname(rs.getString("first_name"));
+				s.setLastname(rs.getString("last_name"));
+				s.setClassroom(rs.getString("classroom"));
+				a.add(s);	
+			}			
+			return a;
+			}catch (SQLException e){
+				e.printStackTrace();
+			}
+			finally {
+				con.close();
+			}
+			return null;			
 	}
 
 }

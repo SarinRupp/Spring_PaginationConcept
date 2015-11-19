@@ -11,4 +11,5 @@ import sarin.app.entities.StudentDTO;
 public interface StudentService {
 		
 	ArrayList<StudentDTO> list(int limit ,int page) throws SQLException;
+	ArrayList<StudentDTO> listAllrecorde() throws SQLException;
 }

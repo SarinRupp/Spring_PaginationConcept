@@ -27,11 +27,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 		
 	}
+	
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	public void addResourceHandlers(ResourceHandlerRegistry registry){
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-		super.addResourceHandlers(registry);
 	}
+	
 	@Bean
 	public DataSource getDataSource(){
 		DriverManagerDataSource dataSource= new DriverManagerDataSource();
