@@ -140,15 +140,37 @@ td a{
 		return str;
 	} 
 	
-	function pagination(recorde){
+	function pagination(recorde){		
 		var page=recorde/5;
 		var str="<ul class='pagination'>";
 		for(var i=0;i<=page;i++){			
-			  str+="<li><a href='list?page="+i+"'>"+i+"</a></li>";
+			  str+="<li><a onclick='loadDataPage("+i+")'  style='cursor:pointer;' >"+i+"</a></li>";
 		}
 		str+="</ul>";
 		return str;		
 	}
+	function loadDataPage(idPage){		 	
+		 
+		$.ajax({  
+	        url:'http://localhost:8080/Spring_PaginationConcept/list?page='+idPage,  
+	        type:'get',
+	        contentType: 'application/json;charset=utf-8', // type of data
+
+	       success: function(data) {      	              
+	               $("#listcontent").html(createTable(data));               
+	              console.log("Success..." + data);
+	     }});  
+		
+	}
+	/* $(document).ready(function(){
+		/* $('#page').on('click', function() {
+			$('li').addClass('active');
+			}); */
+			$("li").click(function(){
+				alert(1);
+			})
+	}); */
+	
 	
 	function actionButton(id){
 		 var str="";		 
